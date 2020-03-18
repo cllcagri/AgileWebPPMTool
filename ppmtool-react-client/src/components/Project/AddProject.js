@@ -1,13 +1,88 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {createProject} from "../../actions/projectActions";
 
 class AddProject extends React.Component {
+    constructor(){
+        super();
+
+        this.state = {
+            projectName: "",
+            projectIdentifier: "",
+            description: "",
+            startDate:"",
+            endDate: ""
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const newProject = {
+            projectName: this.state.projectName,
+            projectIdentifier: this.state.projectIdentifier,
+            description: this.state.description,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate
+        };
+
+        console.log(newProject);
+        this.props.createProject(newProject, this.props.history);
+    };
+
     render() {
         return (
-            <div>
-                <h1>Add project Form</h1>
+            <div className="project">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8 m-auto">
+                            <h2 className="text-dark pt-4">Create - Edit Project Form</h2>
+                            <hr/>
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                    <input type="text" className="form-control form-control-lg "
+                                           placeholder="Project Name" name="projectName" value={this.state.projectName}
+                                           onChange={(e) => this.handleChange(e)} />
+                                </div>
+                                <div className="form-group">
+                                    <input type="text" className="form-control form-control-lg"
+                                           placeholder="Unique Project ID" name="projectIdentifier" value={this.state.projectIdentifier}
+                                           onChange={(e) => this.handleChange(e)}/>
+                                </div>
+                                <div className="form-group">
+                                    <textarea className="form-control form-control-lg"
+                                              placeholder="Project Description"  name="description" value={this.state.description}
+                                              onChange={(e) => this.handleChange(e)} />
+                                </div>
+                                <h6>Start Date</h6>
+                                <div className="form-group">
+                                    <input type="date" className="form-control form-control-lg" name="startDate" value={this.state.startDate}
+                                           onChange={(e) => this.handleChange(e)} />
+                                </div>
+                                <h6>Estimated End Date</h6>
+                                <div className="form-group">
+                                    <input type="date" className="form-control form-control-lg" name="endDate" value={this.state.endDate}
+                                           onChange={(e) => this.handleChange(e)} />
+                                </div>
+
+                                <input type="submit"  style={{background:"#17a2b8",color:"white"}} className="btn btn-block mt-4"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-export default AddProject;
+AddProject.propTypes = {
+    createProject : PropTypes.func.isRequired
+};
+
+export default connect(null,{createProject})(AddProject);
