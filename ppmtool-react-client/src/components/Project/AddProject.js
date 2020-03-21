@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {createProject} from "../../actions/projectActions";
+import classnames from "classnames";
 
 class AddProject extends React.Component {
     constructor(){
@@ -12,7 +13,8 @@ class AddProject extends React.Component {
             projectIdentifier: "",
             description: "",
             startDate:"",
-            endDate: ""
+            endDate: "",
+            errors:{}
         }
     }
 
@@ -36,7 +38,15 @@ class AddProject extends React.Component {
         this.props.createProject(newProject, this.props.history);
     };
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.errors){
+            this.setState({errors: nextProps.errors});
+        }
+    }
+
     render() {
+        const {errors} = this.state.errors;
+
         return (
             <div className="project">
                 <div className="container">
@@ -46,19 +56,29 @@ class AddProject extends React.Component {
                             <hr/>
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className="form-control form-control-lg "
+                                    <input type="text" className={classnames("form-control form-control-lg ",{
+                                        "is-invalid": this.state.errors.projectName
+                                    })}
                                            placeholder="Project Name" name="projectName" value={this.state.projectName}
                                            onChange={(e) => this.handleChange(e)} />
+                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.projectName}</h5>
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className="form-control form-control-lg"
+                                    <input type="text" className={classnames("form-control form-control-lg ",{
+                                        "is-invalid": this.state.errors.projectIdentifier
+                                    })}
                                            placeholder="Unique Project ID" name="projectIdentifier" value={this.state.projectIdentifier}
                                            onChange={(e) => this.handleChange(e)}/>
+                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.projectIdentifier}</h5>
+
                                 </div>
                                 <div className="form-group">
-                                    <textarea className="form-control form-control-lg"
+                                    <textarea className={classnames("form-control form-control-lg ",{
+                                        "is-invalid": this.state.errors.description
+                                    })}
                                               placeholder="Project Description"  name="description" value={this.state.description}
                                               onChange={(e) => this.handleChange(e)} />
+                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.description}</h5>
                                 </div>
                                 <h6>Start Date</h6>
                                 <div className="form-group">
@@ -82,7 +102,12 @@ class AddProject extends React.Component {
 }
 
 AddProject.propTypes = {
-    createProject : PropTypes.func.isRequired
+    createProject : PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 };
 
-export default connect(null,{createProject})(AddProject);
+const mapStateToProps = state => ({
+    errors: state.errors
+});
+
+export default connect(mapStateToProps,{createProject})(AddProject);

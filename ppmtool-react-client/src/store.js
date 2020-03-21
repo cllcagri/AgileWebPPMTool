@@ -2,18 +2,25 @@ import {createStore, applyMiddleware, compose} from "redux";
 import React from "react";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
+import {createLogger} from "redux-logger";
 
 
 const initialState = {};
-const middleware = [thunk];
-
 let store;
 
+const logger = createLogger({
+    collapsed: true,
+    diff: true
+});
+
+
 if(window.navigator.userAgent.includes("Chrome")){
-    store = createStore(rootReducer, initialState, compose(applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+    store = createStore(rootReducer,
+                        initialState,
+                        composeWithDevTools(applyMiddleware(thunk,logger)));
 }else{
-    store = createStore(rootReducer, initialState, compose(applyMiddleware(...middleware)));
+    store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk,logger)));
 }
 
 
