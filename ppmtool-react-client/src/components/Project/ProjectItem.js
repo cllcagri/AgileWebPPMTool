@@ -1,5 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {deleteProject} from "../../actions/projectActions";
 
 const projectStyle = {
     color:"#343a40",
@@ -12,6 +15,11 @@ const orderList ={
 };
 
 class ProjectItem extends React.Component {
+
+    handleDelete = (id) => {
+      this.props.deleteProject(id);
+    };
+
     render() {
         const {project} = this.props;
         return (
@@ -38,7 +46,7 @@ class ProjectItem extends React.Component {
                                     </li>
                                 </Link>
                                 <a href="">
-                                    <li className="list-group-item delete" style={orderList}>
+                                    <li className="list-group-item delete" style={orderList} onClick={this.handleDelete.bind(this, project.projectIdentifier)}>
                                         <i style={projectStyle}><span style={{color:"#ff6347"}}>Delete Project</span></i>
                                     </li>
                                 </a>
@@ -51,4 +59,9 @@ class ProjectItem extends React.Component {
     }
 }
 
-export default ProjectItem;
+ProjectItem.propTypes = {
+   deleteProject: PropTypes.func.isRequired
+};
+
+
+export default connect(null,{deleteProject})(ProjectItem);

@@ -10,7 +10,7 @@ class Header extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#"><img src="diamond1.png" alt="DiamondDash" style={pngStyle}/>DiamonDash</a>
+                    <a className="navbar-brand" href="#"><img src="diamond1.png" style={pngStyle}/>DiamonDash</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">

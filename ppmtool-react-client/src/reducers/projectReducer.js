@@ -1,5 +1,5 @@
 import React from "react";
-import {GET_PROJECT, GET_PROJECTS} from "../actions/types";
+import {DELETE_PROJECT, GET_PROJECT, GET_PROJECTS} from "../actions/types";
 
 const initialState = {
     projects:[],
@@ -17,6 +17,11 @@ export default function (state = initialState, action) {
             return{
                 ...state,
                 project: action.payload
+            };
+        case DELETE_PROJECT:
+            return {
+                ...state,
+                projects: state.projects.filter(project => project.projectIdentifier !== action.payload)
             };
         default:
             return state;

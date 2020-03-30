@@ -45,7 +45,7 @@ class AddProject extends React.Component {
     }
 
     render() {
-        const {errors} = this.state.errors;
+        const errors = this.state.errors;
 
         return (
             <div className="project">
@@ -57,28 +57,28 @@ class AddProject extends React.Component {
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <input type="text" className={classnames("form-control form-control-lg ",{
-                                        "is-invalid": this.state.errors.projectName
+                                        "is-invalid": errors.projectName
                                     })}
                                            placeholder="Project Name" name="projectName" value={this.state.projectName}
                                            onChange={(e) => this.handleChange(e)} />
-                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.projectName}</h5>
+                                    <h5 style={{color:"#ff6347"}}>{errors.projectName}</h5>
                                 </div>
                                 <div className="form-group">
                                     <input type="text" className={classnames("form-control form-control-lg ",{
-                                        "is-invalid": this.state.errors.projectIdentifier
+                                        "is-invalid": errors.projectIdentifier
                                     })}
                                            placeholder="Unique Project ID" name="projectIdentifier" value={this.state.projectIdentifier}
                                            onChange={(e) => this.handleChange(e)}/>
-                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.projectIdentifier}</h5>
+                                    <h5 style={{color:"#ff6347"}}>{errors.projectIdentifier}</h5>
 
                                 </div>
                                 <div className="form-group">
                                     <textarea className={classnames("form-control form-control-lg ",{
-                                        "is-invalid": this.state.errors.description
+                                        "is-invalid": errors.description
                                     })}
                                               placeholder="Project Description"  name="description" value={this.state.description}
                                               onChange={(e) => this.handleChange(e)} />
-                                    <h5 style={{color:"#ff6347"}}>{this.state.errors.description}</h5>
+                                    <h5 style={{color:"#ff6347"}}>{errors.description}</h5>
                                 </div>
                                 <h6>Start Date</h6>
                                 <div className="form-group">
