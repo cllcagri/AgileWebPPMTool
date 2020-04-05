@@ -46,5 +46,20 @@ public class BacklogController {
         return new ResponseEntity<>(projectTask, HttpStatus.OK);
     }
 
+    @PatchMapping("/{backlogId}/{ptId}")
+    public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask,@PathVariable String backlogId,
+                                               @PathVariable String ptId, BindingResult result){
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
+        if(errorMap != null) return errorMap;
+
+        ProjectTask updatedProjectTask = projectTaskService.updateProjectSequence(projectTask,backlogId,ptId);
+        return new ResponseEntity<>(updatedProjectTask, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{backlogId}/{ptId}")
+    public ResponseEntity<?> deleteProjectTask(@PathVariable String backlogId, @PathVariable String ptId){
+        projectTaskService.deletePTByProjectSequence(backlogId,ptId);
+        return new ResponseEntity<String>("Project with ID " +ptId+ " was deleted.", HttpStatus.OK);
+    }
 
 }

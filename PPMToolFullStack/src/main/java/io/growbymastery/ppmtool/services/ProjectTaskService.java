@@ -10,6 +10,8 @@ import io.growbymastery.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectTaskService {
     @Autowired
@@ -64,5 +66,16 @@ public class ProjectTaskService {
         }
 
         return projectTask;
+    }
+
+    public ProjectTask updateProjectSequence(ProjectTask updatedProjectTask, String backlogId, String ptId){
+        ProjectTask projectTask = findPTBySequence(backlogId,ptId);
+        projectTask = updatedProjectTask;
+        return projectTaskRepository.save(projectTask);
+    }
+
+    public void deletePTByProjectSequence(String backlogId, String ptId){
+        ProjectTask projectTask = findPTBySequence(backlogId, ptId);
+        projectTaskRepository.delete(projectTask);
     }
 }
