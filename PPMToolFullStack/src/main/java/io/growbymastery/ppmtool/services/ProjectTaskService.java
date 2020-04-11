@@ -10,7 +10,6 @@ import io.growbymastery.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ProjectTaskService {
@@ -34,7 +33,7 @@ public class ProjectTaskService {
             projectTask.setProjectSequence(projectIdentifier + "-" + BacklogSequence);  //Add Sequence to Project Task
             projectTask.setProjectIdentifer(projectIdentifier);
             //INITIAL priority when priority is null
-            if(projectTask.getPriority() == null){
+            if(projectTask.getPriority() == 0 || projectTask.getPriority() == null){
                 projectTask.setPriority(3);
             }
             //INITIAL status when status is null

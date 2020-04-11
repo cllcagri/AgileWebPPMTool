@@ -35,11 +35,11 @@ class ProjectItem extends React.Component {
                         </div>
                         <div className="col-md-4 d-none d-lg-block">
                             <ul className="list-group">
-                                <a href="#">
+                                <Link to={`/projectBoard/${project.projectIdentifier}`}>
                                     <li className="list-group-item board" style={orderList}>
                                         <i style={projectStyle}>Project Board </i>
                                     </li>
-                                </a>
+                                </Link>
                                 <Link to={`/updateProject/${project.projectIdentifier}`}>
                                     <li className="list-group-item update" style={orderList}>
                                         <i style={projectStyle}>Update Project Info</i>
