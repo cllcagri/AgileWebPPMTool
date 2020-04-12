@@ -1,77 +1,91 @@
 import React from "react";
+import Backlog from "./Backlog";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {getBacklog} from "../../actions/backlogActions";
+
 
 class ProjectBoard extends React.Component {
-    render() {
-        const styleTodo = {
-            backgroundColor: "#FF8166"
-        };
-        const styleInProgress = {
-            backgroundColor: "#FF5733"
-        };
-        const styleDone = {
-            backgroundColor: "#D5492B"
-        };
 
-        debugger;
+    constructor(props) {
+        super(props);
+        this.state = {
+            errors:{}
+        }
+    }
+
+    componentDidMount() {
         const id = this.props.match.params.id;
-        return (
-                <div className="container">
-                    <Link to={`/addProjectTask/${id}`} className="btn btn-lg btn-info" style={{marginTop:"25px"}}>
-                        Create Project Task
-                    </Link>
-                    <br/>
-                    <hr/>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-4">
-                                <div className="card text-center mb-2">
-                                    <div className="card-header text-white" style={styleTodo}>
-                                        <h3>TO DO</h3>
-                                    </div>
-                                </div>
+        this.props.getBacklog(id);
+    }
 
-                                <div className="card mb-1 bg-light">
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.errors){
+            this.setState({errors: nextProps.errors});
+        }
+    }
 
-                                    <div className="card-header text-primary">
-                                        ID: projectSequence -- Priority: priorityString
-                                    </div>
-                                    <div className="card-body bg-light">
-                                        <h5 className="card-title">project_task.summary</h5>
-                                        <p className="card-text text-truncate ">
-                                            project_task.acceptanceCriteria
-                                        </p>
-                                        <a href="#" className="btn btn-lg btn-info">
-                                            View / Update
-                                        </a>
+    render() {
+        const id = this.props.match.params.id;
+        const {project_tasks}  = this.props.backlog;
+        const {errors} = this.state;
+        let BoardContent;
 
-                                        <button className="btn btn-danger ml-4">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="col-md-4">
-                                <div className="card text-center mb-2">
-                                    <div className="card-header text-white" style={styleInProgress}>
-                                        <h3>In Progress</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="card text-center mb-2">
-                                    <div className="card-header text-white" style={styleDone}>
-                                        <h3>Done</h3>
-                                    </div>
-                                </div>
-                            </div>
+        let BoardAlgorithm = (errors, project_tasks) => {
+            if(project_tasks.length < 1){
+                if(errors.message){
+                    return (
+                        <div className="alert alert-danger text-center" role="alert">{errors.message}</div>
+                    );
+                }
+                else{
+                    return(
+                        <div>
+                            <Link to={`/addProjectTask/${id}`} className="btn btn-lg btn-info" style={{marginTop:"25px", marginLeft:"12.4%"}}>
+                                Create Project Task
+                            </Link>
+                            <br/>
+                            <hr/>
+                            <div className="alert alert-info text-center" role="alert">No Project Task In Your Board</div>
                         </div>
+                    );
+                }
+            }else{
+                return  (
+                    <div>
+                        <Link to={`/addProjectTask/${id}`} className="btn btn-lg btn-info" style={{marginTop:"25px", marginLeft:"12.4%"}}>
+                            Create Project Task
+                        </Link>
+                        <br/>
+                        <hr/>
+                        <Backlog  project_tasks_prop = {project_tasks} />
                     </div>
+            );
+            }
+        };
+
+        BoardContent = BoardAlgorithm(errors,project_tasks);
+
+
+        return (
+                <div>
+                    {BoardContent}
                 </div>
         );
     }
 }
 
+ProjectBoard.propTypes = {
+    backlog: PropTypes.object.isRequired,
+    getBacklog: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+};
 
-export default  ProjectBoard;
+
+const mapStateToProject = state => ({
+    backlog: state.backlog,
+    errors: state.errors
+});
+
+export default  connect(mapStateToProject, {getBacklog})(ProjectBoard);
