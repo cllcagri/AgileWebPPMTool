@@ -40,7 +40,7 @@ export const getProject = (projectId, history) => async dispatch => {
 
 export const deleteProject = (projectId) => async dispatch => {
     if(window.confirm('Do you want to Delete this project ?')) {
-        await axios.delete(`/api/project/${projectId}`);
+        await axios.delete(`http://localhost:8080/api/project/${projectId}`);
         dispatch({
             type: DELETE_PROJECT,
             payload: projectId

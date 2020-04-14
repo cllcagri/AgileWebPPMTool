@@ -97,7 +97,7 @@ class AddProjectTask extends React.Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <select lassName={classnames("form-control form-control-lg ",{
+                                        <select className={classnames("form-control form-control-lg ",{
                                             "is-invalid": errors.status})}
                                                 name="status"
                                                 value={this.state.status} onChange={(e) => this.handleChange(e)}>

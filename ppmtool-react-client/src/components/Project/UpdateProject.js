@@ -7,8 +7,8 @@ import classnames from "classnames";
 
 
 class UpdateProject extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             id: "",
             projectName: "",
@@ -85,7 +85,7 @@ class UpdateProject extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h5 className="display-4 text-center">Update Project form</h5>
+                            <h5 className="display-4 text-center">Update Project Form</h5>
                             <hr/>
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
@@ -120,7 +120,7 @@ class UpdateProject extends React.Component {
                                     <input type="date" className="form-control form-control-lg" name="end_date" value={this.state.endDate} onChange={(e) => this.handleChange(e)} />
                                 </div>
 
-                                <input type="submit" className="btn btn-primary btn-block mt-4"/>
+                                <input type="submit" className="btn btn-lg btn-info btn-block mt-4"/>
                             </form>
                         </div>
                     </div>

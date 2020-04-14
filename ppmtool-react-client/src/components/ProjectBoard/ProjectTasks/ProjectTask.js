@@ -1,7 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {deleteProjectTask} from "../../../actions/backlogActions";
+import PropTypes from "prop-types";
+
 
 class ProjectTask extends React.Component {
+
+    handleDelete = (backlogId, ptId) => {
+        this.props.deleteProjectTask(backlogId,ptId);
+    };
+
     render() {
         const {project_task} = this.props;
         return (
@@ -14,17 +23,20 @@ class ProjectTask extends React.Component {
                         <p className="card-text text-truncate ">
                             {project_task.acceptanceCriteria}
                         </p>
-                        <Link to={`/dashboard`} className="btn btn-light mt-4" style={{backgroundColor : "#afb1b3"}}>
+                        <Link to={`/updateProjectTask/${project_task.projectIdentifer}/${project_task.projectSequence}`} className="btn btn-light mt-4" style={{backgroundColor : "#afb1b3"}}>
                             View / Update
                         </Link>
-                        <Link to={`/dashboard`} className="btn btn-light mt-4 ml-2" style={{backgroundColor : "#e66b77"}}>
+                        <button className="btn btn-danger ml-3"  style={{marginTop: "8%"}} onClick={this.handleDelete.bind(this, project_task.projectIdentifer, project_task.projectSequence)}>
                             Delete
-                        </Link>
+                        </button>
                     </div>
                 </div>
         );
     }
 }
 
+ProjectTask.propTypes = {
+  deleteProjectTask: PropTypes.func.isRequired
+};
 
-export default ProjectTask;
+export default connect(null,{deleteProjectTask})(ProjectTask);
