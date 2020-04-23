@@ -2,14 +2,14 @@ import axios from 'axios';
 import {DELETE_PROJECT_TASK, GET_ERRORS, GET_PROJECT_TASK, GET_PROJECT_TASKS} from "./types";
 
 export const addProjectTask = (backlogId, projectTask, history) => async dispatch => {
-    try{
+    try {
         await axios.post(`http://localhost:8080/api/backlog/${backlogId}`, projectTask);
         history.push(`/projectBoard/${backlogId}`);
         dispatch({
             type: GET_ERRORS,
             payload: {}
         });
-    }catch (e) {
+    } catch (e) {
         dispatch({
             type: GET_ERRORS,
             payload: e.response.data
@@ -18,14 +18,14 @@ export const addProjectTask = (backlogId, projectTask, history) => async dispatc
 
 };
 
-export const getBacklog = (backlogId) => async  dispatch => {
+export const getBacklog = (backlogId) => async dispatch => {
     try {
         const res = await axios.get(`http://localhost:8080/api/backlog/${backlogId}`);
         dispatch({
             type: GET_PROJECT_TASKS,
             payload: res.data
         });
-    }catch (e) {
+    } catch (e) {
         dispatch({
             type: GET_ERRORS,
             payload: e.response.data
@@ -34,21 +34,21 @@ export const getBacklog = (backlogId) => async  dispatch => {
 };
 
 
-export const getProjectTask = (backlogId, ptId, history) => async  dispatch => {
-    try{
+export const getProjectTask = (backlogId, ptId, history) => async dispatch => {
+    try {
         const res = await axios.get(`http://localhost:8080/api/backlog/${backlogId}/${ptId}`);
         dispatch({
             type: GET_PROJECT_TASK,
             payload: res.data
         });
-    }catch (e) {
+    } catch (e) {
         history.push("/dashboard");
     }
 };
 
 
-export const deleteProjectTask = (backlogId, ptId) => async  dispatch => {
-    if(window.confirm('Do you want to Delete this project task?')) {
+export const deleteProjectTask = (backlogId, ptId) => async dispatch => {
+    if (window.confirm('Do you want to Delete this project task?')) {
         await axios.delete(`http://localhost:8080/api/backlog/${backlogId}/${ptId}`);
         dispatch({
             type: DELETE_PROJECT_TASK,

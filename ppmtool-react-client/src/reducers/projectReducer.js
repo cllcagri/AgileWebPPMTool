@@ -2,19 +2,19 @@ import React from "react";
 import {DELETE_PROJECT, GET_PROJECT, GET_PROJECTS} from "../actions/types";
 
 const initialState = {
-    projects:[],
+    projects: [],
     project: {}
 };
 
 export default function (state = initialState, action) {
-    switch(action.type){
+    switch (action.type) {
         case GET_PROJECTS:
-            return{
+            return {
                 ...state,
                 projects: action.payload
             };
         case GET_PROJECT:
-            return{
+            return {
                 ...state,
                 project: action.payload
             };

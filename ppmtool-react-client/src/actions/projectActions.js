@@ -18,7 +18,7 @@ export const createProject = (project, history) => async dispatch => {
 };
 
 // get porjects from java backend
-export const  getProjects = () => async dispatch => {
+export const getProjects = () => async dispatch => {
     const res = await axios.get("http://localhost:8080/api/project/all");
     dispatch({
         type: GET_PROJECTS,
@@ -27,19 +27,19 @@ export const  getProjects = () => async dispatch => {
 };
 
 export const getProject = (projectId, history) => async dispatch => {
-    try{
+    try {
         const res = await axios.get(`http://localhost:8080/api/project/${projectId}`);
         dispatch({
             type: GET_PROJECT,
             payload: res.data
         });
-    }catch(error){
+    } catch (error) {
         history.push('/dashboard');
     }
 };
 
 export const deleteProject = (projectId) => async dispatch => {
-    if(window.confirm('Do you want to Delete this project ?')) {
+    if (window.confirm('Do you want to Delete this project ?')) {
         await axios.delete(`http://localhost:8080/api/project/${projectId}`);
         dispatch({
             type: DELETE_PROJECT,

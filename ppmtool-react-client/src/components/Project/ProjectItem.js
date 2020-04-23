@@ -5,19 +5,19 @@ import {connect} from "react-redux";
 import {deleteProject} from "../../actions/projectActions";
 
 const projectStyle = {
-    color:"#343a40",
+    color: "#343a40",
     fontStyle: "normal",
     fontWeight: "bold"
 };
 
-const orderList ={
+const orderList = {
     textAlign: "center"
 };
 
 class ProjectItem extends React.Component {
 
     handleDelete = (id) => {
-      this.props.deleteProject(id);
+        this.props.deleteProject(id);
     };
 
     render() {
@@ -46,8 +46,10 @@ class ProjectItem extends React.Component {
                                     </li>
                                 </Link>
                                 <a href="">
-                                    <li className="list-group-item delete" style={orderList} onClick={this.handleDelete.bind(this, project.projectIdentifier)}>
-                                        <i style={projectStyle}><span style={{color:"#ff6347"}}>Delete Project</span></i>
+                                    <li className="list-group-item delete" style={orderList}
+                                        onClick={this.handleDelete.bind(this, project.projectIdentifier)}>
+                                        <i style={projectStyle}><span
+                                            style={{color: "#ff6347"}}>Delete Project</span></i>
                                     </li>
                                 </a>
                             </ul>
@@ -60,8 +62,8 @@ class ProjectItem extends React.Component {
 }
 
 ProjectItem.propTypes = {
-   deleteProject: PropTypes.func.isRequired
+    deleteProject: PropTypes.func.isRequired
 };
 
 
-export default connect(null,{deleteProject})(ProjectItem);
+export default connect(null, {deleteProject})(ProjectItem);

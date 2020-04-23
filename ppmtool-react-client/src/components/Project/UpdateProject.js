@@ -7,14 +7,14 @@ import classnames from "classnames";
 
 
 class UpdateProject extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             id: "",
             projectName: "",
             projectIdentifier: "",
             description: "",
-            startDate:"",
+            startDate: "",
             endDate: "",
             errors: {}
         }
@@ -22,7 +22,7 @@ class UpdateProject extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         //console.log(nextProps.project);
-        if(nextProps.errors){
+        if (nextProps.errors) {
             this.setState({errors: nextProps.errors});
         }
 
@@ -31,7 +31,7 @@ class UpdateProject extends React.Component {
             projectName: nextProps.project.projectName,
             projectIdentifier: nextProps.project.projectIdentifier,
             description: nextProps.project.description,
-            startDate:nextProps.project.startDate,
+            startDate: nextProps.project.startDate,
             endDate: nextProps.project.endDate
         });
     }
@@ -56,7 +56,7 @@ class UpdateProject extends React.Component {
             projectName: this.state.projectName,
             projectIdentifier: this.state.projectIdentifier,
             description: this.state.description,
-            startDate:this.state.startDate,
+            startDate: this.state.startDate,
             endDate: this.state.endDate
         };
 
@@ -69,15 +69,14 @@ class UpdateProject extends React.Component {
 
         let alertBoxName;
         let alertBoxDesc;
-        if(Object.keys(errors).length !== 0){
-            if(errors.projectName){
+        if (Object.keys(errors).length !== 0) {
+            if (errors.projectName) {
                 alertBoxName = <div className="alert alert-danger" role="alert">{errors.projectName}</div>
             }
-            if(errors.description){
+            if (errors.description) {
                 alertBoxDesc = <div className="alert alert-danger" role="alert">{errors.description}</div>
             }
         }
-
 
 
         return (
@@ -89,10 +88,11 @@ class UpdateProject extends React.Component {
                             <hr/>
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className={classnames("form-control form-control-lg ",{
+                                    <input type="text" className={classnames("form-control form-control-lg ", {
                                         "is-invalid": errors.projectName
                                     })} name="projectName"
-                                           placeholder="Project Name" value={this.state.projectName}  onChange={(e) => this.handleChange(e)}/>
+                                           placeholder="Project Name" value={this.state.projectName}
+                                           onChange={(e) => this.handleChange(e)}/>
                                 </div>
                                 <div>
                                     {alertBoxName}
@@ -100,24 +100,28 @@ class UpdateProject extends React.Component {
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg"
                                            placeholder="Unique Project ID" name="projectIdentifier"
-                                           disabled value={this.state.projectIdentifier} onChange={(e) => this.handleChange(e)} />
+                                           disabled value={this.state.projectIdentifier}
+                                           onChange={(e) => this.handleChange(e)}/>
                                 </div>
                                 <div className="form-group">
-                                    <textarea className={classnames("form-control form-control-lg ",{
+                                    <textarea className={classnames("form-control form-control-lg ", {
                                         "is-invalid": errors.description
                                     })} name="description"
-                                        placeholder="Project Description"  value={this.state.description}  onChange={(e) => this.handleChange(e)} />
+                                              placeholder="Project Description" value={this.state.description}
+                                              onChange={(e) => this.handleChange(e)}/>
                                 </div>
                                 <div>
                                     {alertBoxDesc}
                                 </div>
                                 <h6>Start Date</h6>
                                 <div className="form-group">
-                                    <input type="date" className="form-control form-control-lg" name="start_date" value={this.state.startDate} onChange={(e) => this.handleChange(e)} />
+                                    <input type="date" className="form-control form-control-lg" name="start_date"
+                                           value={this.state.startDate} onChange={(e) => this.handleChange(e)}/>
                                 </div>
                                 <h6>Estimated End Date</h6>
                                 <div className="form-group">
-                                    <input type="date" className="form-control form-control-lg" name="end_date" value={this.state.endDate} onChange={(e) => this.handleChange(e)} />
+                                    <input type="date" className="form-control form-control-lg" name="end_date"
+                                           value={this.state.endDate} onChange={(e) => this.handleChange(e)}/>
                                 </div>
 
                                 <input type="submit" className="btn btn-lg btn-info btn-block mt-4"/>
@@ -131,8 +135,8 @@ class UpdateProject extends React.Component {
 }
 
 UpdateProject.propTypes = {
-    getProject : PropTypes.func.isRequired,
-    createProject : PropTypes.func.isRequired,
+    getProject: PropTypes.func.isRequired,
+    createProject: PropTypes.func.isRequired,
     project: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -143,4 +147,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default  connect(mapStateToProps, {getProject, createProject})(UpdateProject);
+export default connect(mapStateToProps, {getProject, createProject})(UpdateProject);

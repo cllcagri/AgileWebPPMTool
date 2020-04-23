@@ -1,6 +1,7 @@
 package io.growbymastery.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,127 +11,166 @@ import java.util.Date;
 @Entity
 public class Project {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @NotBlank(message = "Project name is required")
-    private String projectName;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @NotBlank(message = "Project identifier is required")
-    @Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
-    @Column(updatable = false, unique = true)
-    private String projectIdentifier;
+  @NotBlank(message = "Project name is required")
+  private String projectName;
 
-    @NotBlank(message = "Project description is required")
-    private String description;
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date startDate;
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date endDate;
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    @Column(updatable = false)
-    private Date created_At;
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date updated_At;
+  @NotBlank(message = "Project identifier is required")
+  @Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
+  @Column(updatable = false, unique = true)
+  private String projectIdentifier;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
-    private Backlog backlog;
+  @NotBlank(message = "Project description is required")
+  private String description;
 
-    @PrePersist
-    protected void onCreate(){
-        this.created_At = new Date();
-    }
+  @JsonFormat(pattern = "yyyy-mm-dd")
+  private Date startDate;
 
-    @PreUpdate
-    protected  void onUpdate(){
-        this.updated_At = new Date();
-    }
+  @JsonFormat(pattern = "yyyy-mm-dd")
+  private Date endDate;
 
-    public Project(){}
+  @JsonFormat(pattern = "yyyy-mm-dd")
+  @Column(updatable = false)
+  private Date created_At;
 
-    public Integer getId() {
-        return id;
-    }
+  @JsonFormat(pattern = "yyyy-mm-dd")
+  private Date updated_At;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+  @JsonIgnore
+  private Backlog backlog;
 
-    public String getProjectName() {
-        return projectName;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
+  private User user;
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+  private String projectLeader;
 
-    public String getProjectIdentifier() {
-        return projectIdentifier;
-    }
+  @PrePersist
+  protected void onCreate() {
+    this.created_At = new Date();
+  }
 
-    public void setProjectIdentifier(String projectIdentifier) {
-        this.projectIdentifier = projectIdentifier;
-    }
+  @PreUpdate
+  protected void onUpdate() {
+    this.updated_At = new Date();
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public Project() {}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public Date getStartDate() {
-        return startDate;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+  public String getProjectName() {
+    return projectName;
+  }
 
-    public Date getEndDate() {
-        return endDate;
-    }
+  public void setProjectName(String projectName) {
+    this.projectName = projectName;
+  }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+  public String getProjectIdentifier() {
+    return projectIdentifier;
+  }
 
-    public Date getCreated_At() {
-        return created_At;
-    }
+  public void setProjectIdentifier(String projectIdentifier) {
+    this.projectIdentifier = projectIdentifier;
+  }
 
-    public void setCreated_At(Date created_At) {
-        this.created_At = created_At;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public Date getUpdated_At() {
-        return updated_At;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setUpdated_At(Date updated_At) {
-        this.updated_At = updated_At;
-    }
+  public Date getStartDate() {
+    return startDate;
+  }
 
-    public Backlog getBacklog() {
-        return backlog;
-    }
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
 
-    public void setBacklog(Backlog backlog) {
-        this.backlog = backlog;
-    }
+  public Date getEndDate() {
+    return endDate;
+  }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", projectName='" + projectName + '\'' +
-                ", projectIdentifier='" + projectIdentifier + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", created_At=" + created_At +
-                ", updated_At=" + updated_At +
-                '}';
-    }
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
+
+  public Date getCreated_At() {
+    return created_At;
+  }
+
+  public void setCreated_At(Date created_At) {
+    this.created_At = created_At;
+  }
+
+  public Date getUpdated_At() {
+    return updated_At;
+  }
+
+  public void setUpdated_At(Date updated_At) {
+    this.updated_At = updated_At;
+  }
+
+  public Backlog getBacklog() {
+    return backlog;
+  }
+
+  public void setBacklog(Backlog backlog) {
+    this.backlog = backlog;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public String getProjectLeader() {
+    return projectLeader;
+  }
+
+  public void setProjectLeader(String projectLeader) {
+    this.projectLeader = projectLeader;
+  }
+
+  @Override
+  public String toString() {
+    return "Project{"
+        + "id="
+        + id
+        + ", projectName='"
+        + projectName
+        + '\''
+        + ", projectIdentifier='"
+        + projectIdentifier
+        + '\''
+        + ", description='"
+        + description
+        + '\''
+        + ", startDate="
+        + startDate
+        + ", endDate="
+        + endDate
+        + ", created_At="
+        + created_At
+        + ", updated_At="
+        + updated_At
+        + '}';
+  }
 }
