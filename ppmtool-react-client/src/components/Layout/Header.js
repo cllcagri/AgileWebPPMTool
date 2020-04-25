@@ -1,4 +1,7 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import Dashboard from "../Dashboard";
+
 
 const pngStyle = {
     width: "31px",
@@ -19,13 +22,13 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/dashboard">Dashboard</a>
+                                <Link className="nav-link" to="/dashboard">Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Sign Up</a>
+                                <Link className="nav-link" to="/login">Sign Up</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Register</a>
+                                <Link className="nav-link" to="/register">Register</Link>
                             </li>
                         </ul>
                     </div>
