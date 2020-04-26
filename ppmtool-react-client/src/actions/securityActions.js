@@ -22,7 +22,6 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 export const loginUser = LoginRequest => async dispatch => {
     try {
-        debugger;
         // post => Login Request
         const res = await axios.post("http://localhost:8080/api/users/login", LoginRequest);
         // extract token from res.data
@@ -44,4 +43,13 @@ export const loginUser = LoginRequest => async dispatch => {
             payload: err.response.data
         });
     }
+};
+
+export const logoutUser = () => async dispatch => {
+    localStorage.removeItem("jwtToken");
+    setJWTToken(false);
+    dispatch({
+        type: SET_CURRENT_USER,
+        payload: {}
+    });
 };

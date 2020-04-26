@@ -14,6 +14,30 @@ import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProj
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import jwt_decode from "jwt-decode";
+import setJWTToken from "./SecurityUtils/setJWTToken";
+import {SET_CURRENT_USER} from "./actions/types";
+import {logoutUser} from "./actions/securityActions";
+
+
+const jwtToken = localStorage.jwtToken;
+
+if (jwtToken) {
+    setJWTToken(jwtToken);
+    const decoded_jwtToken = jwt_decode(jwtToken);
+    store.dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded_jwtToken
+    });
+
+    let currentTime = Date.now() / 1000;
+    debugger;
+    if (decoded_jwtToken.exp < currentTime) {
+        debugger;
+        store.dispatch(logoutUser());
+        window.location.href = "/";
+    }
+}
 
 function App() {
     return (
@@ -28,8 +52,8 @@ function App() {
                     <Route exact path="/addProjectTask/:id" component={AddProjectTask}/>
                     <Route exact path="/updateProjectTask/:backlogId/:ptId" component={UpdateProjectTask}/>
                     <Route exact path="/landing" component={Landing}/>
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/login" component={Login}/>
                 </div>
             </Router>
         </Provider>
