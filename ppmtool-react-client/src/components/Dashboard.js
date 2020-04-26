@@ -4,6 +4,7 @@ import CreateProjectButton from "./Project/CreateProjectButton";
 import {connect} from "react-redux";
 import {getProjects} from "../actions/projectActions";
 import PropTypes from "prop-types";
+import '../App.css';
 
 class Dashboard extends React.Component {
 
@@ -18,7 +19,7 @@ class Dashboard extends React.Component {
         );
 
         return (
-                <div className="projects">
+                <div className="dash-component">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
