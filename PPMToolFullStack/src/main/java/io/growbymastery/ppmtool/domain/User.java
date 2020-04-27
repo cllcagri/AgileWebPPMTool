@@ -30,7 +30,6 @@ public class User implements UserDetails {
   @NotBlank(message = "password is required.")
   private String password;
 
-  @NotBlank(message = "Confirm password is required.")
   @Transient private String confirmPassword;
 
   @JsonFormat(pattern = "yyyy-mm-dd")

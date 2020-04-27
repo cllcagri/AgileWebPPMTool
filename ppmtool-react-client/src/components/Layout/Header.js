@@ -1,6 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Dashboard from "../Dashboard";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {logoutUser} from "../../actions/securityActions";
 
 
 const pngStyle = {
@@ -38,4 +41,13 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+Header.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    security: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    security: state.security
+});
+
+export default connect(mapStateToProps, {logoutUser})(Header);

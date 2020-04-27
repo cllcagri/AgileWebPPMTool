@@ -54,7 +54,7 @@ public class ProjectTaskService {
 
   public ProjectTask findPTBySequence(String backlogId, String ptId, String username) {
 
-    Project project = projectService.findByProjectIdentifier(ptId, username);
+    Project project = projectService.findByProjectIdentifier(backlogId, username);
     if (project == null)
       throw new ProjectNotFoundException("Project with id :" + ptId + " is not exist !");
 
