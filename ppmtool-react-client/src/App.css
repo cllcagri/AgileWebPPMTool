@@ -38,13 +38,11 @@
 
 .dash-component {
   /* The image used */
-  background-image: url(images/picture2.png);
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url(images/picture2.png) no-repeat center center fixed;
   background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
 }
+
+

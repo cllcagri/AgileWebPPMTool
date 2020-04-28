@@ -20,7 +20,7 @@ class Dashboard extends React.Component {
 
         return (
                 <div className="dash-component">
-                    <div className="container">
+                    <div className="container" style={{height:"665px"}}>
                         <div className="row">
                             <div className="col-md-12">
                                 <br/>

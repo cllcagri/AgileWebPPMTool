@@ -31,9 +31,7 @@ if (jwtToken) {
     });
 
     let currentTime = Date.now() / 1000;
-    debugger;
     if (decoded_jwtToken.exp < currentTime) {
-        debugger;
         store.dispatch(logoutUser());
         window.location.href = "/";
     }
