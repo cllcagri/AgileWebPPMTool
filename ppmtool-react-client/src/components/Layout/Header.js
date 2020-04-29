@@ -27,6 +27,9 @@ class Header extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
+                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li className="nav-item">
                         <Link className="nav-link" to="/dashboard">
                             <i className="fa fa-user-circle mr-1"><span className="ml-1">{user.fullName}</span></i>
                         </Link>
@@ -41,9 +44,6 @@ class Header extends React.Component {
         const userIsNotAuthenticated = (
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to={Dashboard}>Dashboard</Link>
-                    </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/login">Sign Up</Link>
                     </li>
@@ -65,7 +65,7 @@ class Header extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#"><img src="diamond1.png" style={pngStyle}/>DiamondDash</a>
+                    <a className="navbar-brand" href="/dashboard"><img src="diamond1.png" style={pngStyle}/>DiamondDash</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">

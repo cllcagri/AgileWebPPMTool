@@ -41,6 +41,12 @@ class Login extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.security.validToken) {
+            this.props.history.push("/dashboard");
+        }
+    }
+
     render() {
         const errors = this.state.errors;
 

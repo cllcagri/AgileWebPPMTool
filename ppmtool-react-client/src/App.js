@@ -3,7 +3,7 @@ import './App.css';
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AddProject from "./components/Project/AddProject";
 import {Provider} from "react-redux";
 import store from "./store";
@@ -18,7 +18,7 @@ import jwt_decode from "jwt-decode";
 import setJWTToken from "./SecurityUtils/setJWTToken";
 import {SET_CURRENT_USER} from "./actions/types";
 import {logoutUser} from "./actions/securityActions";
-
+import SecureRoute from "./SecurityUtils/secureRoute";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -43,12 +43,14 @@ function App() {
             <Router>
                 <div className="App">
                     <Header/>
-                    <Route exact path="/dashboard" component={Dashboard}/>
-                    <Route exact path="/addProject" component={AddProject}/>
-                    <Route exact path="/updateProject/:id" component={UpdateProject}/>
-                    <Route exact path="/projectBoard/:id" component={ProjectBoard}/>
-                    <Route exact path="/addProjectTask/:id" component={AddProjectTask}/>
-                    <Route exact path="/updateProjectTask/:backlogId/:ptId" component={UpdateProjectTask}/>
+                    <Switch>
+                        <SecureRoute exact path="/dashboard" component={Dashboard}/>
+                        <SecureRoute exact path="/addProject" component={AddProject}/>
+                        <SecureRoute exact path="/updateProject/:id" component={UpdateProject}/>
+                        <SecureRoute exact path="/projectBoard/:id" component={ProjectBoard}/>
+                        <SecureRoute exact path="/addProjectTask/:id" component={AddProjectTask}/>
+                        <SecureRoute exact path="/updateProjectTask/:backlogId/:ptId" component={UpdateProjectTask}/>
+                    </Switch>
                     <Route exact path="/landing" component={Landing}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/login" component={Login}/>
