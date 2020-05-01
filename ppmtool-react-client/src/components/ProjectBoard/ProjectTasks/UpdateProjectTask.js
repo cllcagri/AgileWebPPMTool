@@ -74,7 +74,6 @@ class UpdateProjectTask extends React.Component {
 
 
     render() {
-        debugger;
         const errors = this.state.errors;
         const {backlogId} = this.props.match.params;
 

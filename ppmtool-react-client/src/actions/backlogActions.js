@@ -36,7 +36,6 @@ export const getBacklog = (backlogId) => async dispatch => {
 
 export const getProjectTask = (backlog_id, pt_id, history) => async dispatch => {
     try {
-        debugger;
         const res = await axios.get(`http://localhost:8080/api/backlog/${backlog_id}/${pt_id}`);
         dispatch({
             type: GET_PROJECT_TASK,

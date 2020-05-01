@@ -59,7 +59,7 @@ class Register extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-5 text-center">Sign Up</h1>
+                            <h1 className="display-5 text-center">Register</h1>
                             <p className="lead text-center">Create your Account</p>
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">

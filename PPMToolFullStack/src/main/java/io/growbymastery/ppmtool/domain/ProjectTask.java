@@ -22,7 +22,6 @@ public class ProjectTask {
     private Integer priority;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dueDate;
-
     //ManyToOne with Backlog
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="backlog_id", updatable = false, nullable = false)
