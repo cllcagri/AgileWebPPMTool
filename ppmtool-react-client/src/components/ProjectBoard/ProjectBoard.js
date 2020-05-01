@@ -34,7 +34,6 @@ class ProjectBoard extends React.Component {
 
         let BoardAlgorithm = (errors, project_tasks) => {
             if(project_tasks.length < 1){
-                debugger;
                 if(errors.message){
                     return (
                         <div className="alert alert-danger text-center" role="alert">{errors.message}</div>
